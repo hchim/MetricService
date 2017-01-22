@@ -13,7 +13,7 @@ var dbUrl = conf.get('db.mongodb.url');
 var endpoint = 'http://' + ip + ':' + port + '/metrics/';
 const os = require('os');
 
-describe('/babyinfos', function() {
+describe('/metrics', function() {
 
     before(function(done) {
         mongoose.connect(dbUrl, function (err) {
@@ -37,11 +37,21 @@ describe('/babyinfos', function() {
             var formData = {
                 tag: "MetricService:counttest",
                 type: 'count',
-                app: 'MetricTest',
+                appName: 'MetricTest',
+                appVersion: '1.0.1',
                 count: 1,
                 hostname: os.hostname(),
-                platform: os.platform(),
-                osVersion: os.release(),
+                device: {
+                    model: 'Nexus 4',
+                    brand: 'google',
+                    serial: 'fakeserialnum'
+                },
+                "os": {
+                    os_name: 'Android',
+                    sdk_int: 22,
+                    os_type: "user",
+                    fingerprint: "fakefingerprint"
+                }
             };
             request.post({url: endpoint, form: formData}, function (err, res, body){
                 if (err) done(err);
@@ -57,11 +67,21 @@ describe('/babyinfos', function() {
             var formData = {
                 tag: "MetricService:timetest",
                 type: 'time',
-                app: 'MetricTest',
+                appName: 'MetricTest',
+                appVersion: '1.0.1',
                 time: 734,
                 hostname: os.hostname(),
-                platform: os.platform(),
-                osVersion: os.release(),
+                device: {
+                    model: 'Nexus 4',
+                    brand: 'google',
+                    serial: 'fakeserialnum'
+                },
+                "os": {
+                    os_name: 'Android',
+                    sdk_int: 22,
+                    os_type: "user",
+                    fingerprint: "fakefingerprint"
+                }
             };
             request.post({url: endpoint, form: formData}, function (err, res, body){
                 if (err) done(err);
@@ -77,11 +97,21 @@ describe('/babyinfos', function() {
             var formData = {
                 tag: "MetricService:errortest",
                 type: 'error',
-                app: 'MetricTest',
+                appName: 'MetricTest',
+                appVersion: '1.0.1',
                 message: 'error message',
                 hostname: os.hostname(),
-                platform: os.platform(),
-                osVersion: os.release(),
+                device: {
+                    model: 'Nexus 4',
+                    brand: 'google',
+                    serial: 'fakeserialnum'
+                },
+                "os": {
+                    os_name: 'Android',
+                    sdk_int: 22,
+                    os_type: "user",
+                    fingerprint: "fakefingerprint"
+                }
             };
             request.post({url: endpoint, form: formData}, function (err, res, body){
                 if (err) done(err);
