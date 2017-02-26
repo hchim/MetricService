@@ -21,6 +21,7 @@
     "chai": "*",
     "request": "*",
     "moment-timezone": "*",
-    "string-format-js": "*"
+    "string-format-js": "*",
+    "servicecommonutils": "git+ssh://git@git.hch.im:service-infrastructure/servicecommonutils.git"
   }
 }
