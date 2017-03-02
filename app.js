@@ -33,6 +33,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//request signature checkup
+if (conf.get("env") !== 'test') {
+    app.use(middlewares.signature_middleware)
+}
+
 // setup routes
 app.use('/', index);
 app.use('/metrics', metrics);
