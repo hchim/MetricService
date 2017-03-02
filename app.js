@@ -7,6 +7,7 @@ var FileStreamRotator = require('file-stream-rotator');
 var fs = require('fs');
 var conf = require("./config");
 var middlewares = require('service-middlewares')(conf)
+var utils = require('servicecommonutils');
 
 //routes
 var index = require('./routes/index');
@@ -57,10 +58,10 @@ app.use(function(req, res, next) {
 if (conf.get("env") === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.json({
+        res.json(utils.encodeResponseBody(req, {
             message: err.message,
             error: err
-        });
+        }));
     });
 }
 
@@ -69,9 +70,9 @@ if (conf.get("env") === 'development') {
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     console.error(err.message);
-    res.json({
+    res.json(utils.encodeResponseBody(req, {
         message: err.message
-    });
+    }));
 });
 
 module.exports = app;
