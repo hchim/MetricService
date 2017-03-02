@@ -40,6 +40,10 @@ var conf = convict({
                 "default": "mongodb://localhost/metricdb"
             }
         }
+    },
+    redis: {
+        host: '127.0.0.1',
+        port: 6379
     }
 
 });

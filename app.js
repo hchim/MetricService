@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var FileStreamRotator = require('file-stream-rotator');
 var fs = require('fs');
 var conf = require("./config");
+var middlewares = require('service-middlewares')(conf)
 
 //routes
 var index = require('./routes/index');

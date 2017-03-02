@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var Metric = require("../models/Metric");
-var commonUtils = require('servicecommonutils');
+var utils = require('servicecommonutils');
 
 /*
 * Add or update baby info.
 * req.body.birthday: in 'yyyy-MM-dd' format
 */
 router.post("/", function(req, res, next) {
-  var model = commonUtils.nestedReqField(req.body, 'device', 'model');
-  var brand = commonUtils.nestedReqField(req.body, 'device', 'brand');
-  var serial = commonUtils.nestedReqField(req.body, 'device', 'serial');
-  var os_name = commonUtils.nestedReqField(req.body, 'os', 'os_name');
-  var sdk_int = commonUtils.nestedReqField(req.body, 'os', 'sdk_int');
+  var model = utils.nestedReqField(req.body, 'device', 'model');
+  var brand = utils.nestedReqField(req.body, 'device', 'brand');
+  var serial = utils.nestedReqField(req.body, 'device', 'serial');
+  var os_name = utils.nestedReqField(req.body, 'os', 'os_name');
+  var sdk_int = utils.nestedReqField(req.body, 'os', 'sdk_int');
   var sdk_int_val = parseInt(sdk_int);
-  var os_type = commonUtils.nestedReqField(req.body, 'os', 'os_type');
-  var fingerprint = commonUtils.nestedReqField(req.body, 'os', 'fingerprint');
+  var os_type = utils.nestedReqField(req.body, 'os', 'os_type');
+  var fingerprint = utils.nestedReqField(req.body, 'os', 'fingerprint');
 
   var metric = new Metric({
     tag: req.body.tag,
@@ -49,11 +49,11 @@ router.post("/", function(req, res, next) {
       return next(err);
     }
 
-    res.json({
+    res.json(utils.encodeResponseBody(req, {
       '_id': metric._id,
       'tag': metric.tag,
       'createTime': metric.createTime
-    });
+    }));
   });
 });
 
