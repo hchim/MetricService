@@ -2,8 +2,15 @@ var mongoose = require("mongoose");
 var conf = require("../config");
 
 var metricSchema = mongoose.Schema({
-    tag: String,
-    type: String,   // count | time | error | msg
+    tag: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ['count', 'time', 'error', 'msg']
+    },
     appName: String,
     appVersion: String,
     createTime: {type: Date, default: Date.now},
