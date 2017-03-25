@@ -1,53 +1,10 @@
 var convict = require('convict');
 var fs = require('fs');
-
+var utils = require('servicecommonutils')
 // Define a schema
-var conf = convict({
-    env: {
-        doc: "The applicaton environment.",
-        format: ["production", "development", "test"],
-        default: "development",
-        env: "NODE_ENV"
-    },
-    server: {
-        ip: {
-            doc: "IP address to bind",
-            format: 'ipaddress',
-            default: '0.0.0.0',
-            env: "IP"
-        },
-        port: {
-            doc: "port to bind",
-            format: 'port',
-            default: 3012,
-            env: "PORT"
-        }
-    },
-    log: {
-        dateformat: {
-            doc: "date format",
-            default: 'YYYY-MM-DD'
-        },
-        frequency: {
-            doc: 'the log file rotate frequency',
-            default: "daily"
-        }
-    },
-    db: {
-        mongodb: {
-            url: {
-                doc: "mongodb url",
-                "default": "mongodb://localhost/metricdb"
-            }
-        }
-    },
-    redis: {
-        host: '127.0.0.1',
-        port: 6379
-    }
+var conf = convict(utils.commonConfigs());
 
-});
-
+conf.loadFile('./config/common.json')
 // Load environment dependent configuration
 var config_path = './config/' + conf.get('env');
 var files = fs.readdirSync(config_path);
