@@ -1,5 +1,16 @@
 {
   "service": {
     "name": "MetricService"
+  },
+  "server": {
+    "ip": "0.0.0.0",
+    "port": 3012
+  },
+  "mongodb": {
+    "url": "mongodb://23.239.3.78/metricdb"
+  },
+  "redis": {
+    "host": "23.239.3.78",
+    "port": 6379
   }
 }
