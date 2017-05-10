@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Metric = require("../models/Metric");
+var mongoose = require('mongoose');
+var Metric = require("metricservicemodels").Metric(mongoose.connection);
 var utils = require('servicecommonutils');
 
 /*
