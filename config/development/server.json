@@ -1,2 +1,9 @@
 {
+  "mongodb": {
+    "url": "mongodb://localhost/metricdb"
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379
+  }
 }

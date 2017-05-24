@@ -3,3 +3,4 @@ log/*.log
 *.log
 .project
 node_modules/
+modules/
