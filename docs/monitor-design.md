@@ -6,7 +6,7 @@ Each monitor is a periodic task.
 - Monitoring tasks should be evenly allocated to node instances in the host cluster. After adding monitors or deleting monitors
   , these tasks should be still evenly allocated.
 - Monitor updates (add, delete, modify) should be propagated to task scheduler and executors as soon as possible. Task scheduler executor 
-  should take the following operatins at the earliest time.
+  should take the following operations at the earliest time.
   - Add: task scheduler should schedule the task as soon as possible.
   - Delete: Scheduled tasks should be cancelled as soon as possible. Unscheduled tasks should be deleted.
   - Update: Both scheduled and unscheduled tasks should be updated as soon as possible.
@@ -15,5 +15,13 @@ Each monitor is a periodic task.
   
 ## Design
 
+### Task Queue
 
-  
+
+
+### Scheduler
+
+The scheduler runs two periodic tasks:
+
+- Task Retrieve
+- 

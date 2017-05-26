@@ -10,7 +10,7 @@ var http = require('http');
 var conf = require("../config");
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-var Scheduler = require('../utils/Scheduler');
+var Scheduler = require('../utils/monitoring/Scheduler');
 
 /**
  * Get port from environment and store in Express.
@@ -123,7 +123,7 @@ function connect_db() {
         }
 
         //init scheduler
-        var scheduler = new Scheduler(10000, 2, 30000, 5, 600000);
+        var scheduler = new Scheduler();
         scheduler.start();
     });
 }
