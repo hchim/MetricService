@@ -7,10 +7,10 @@
     "port": 3012
   },
   "mongodb": {
-    "url": "mongodb://23.239.3.78/metricdb"
+    "url": "mongodb://localhost/metricdb"
   },
   "redis": {
-    "host": "23.239.3.78",
+    "host": "localhost",
     "port": 6379
   }
 }

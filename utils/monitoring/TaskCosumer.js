@@ -141,7 +141,7 @@ var executeMonitoringTask = function (query, taskId, statInterval, aboveOrBelow,
             }
 
             //update task status
-            redlock.lock(Task_Priority_Queues, redlockTTL, function(err, lock) {
+            redlock.lock(monitorConf.Redlock_ID, monitorConf.Redlock_TTL, function(err, lock) {
                 if (err) {
                     winston.log('error', 'Failed to acquire redlock: ' + Task_Priority_Queues, err);
                     return;
@@ -218,7 +218,7 @@ TaskConsumer.prototype.addTask = function (taskId, timeout) {
  * @param taskId
  */
 TaskConsumer.prototype.removeTask = function (taskId) {
-    this.scheduledTasks.delete(taskId);
+    delete this.scheduledTasks[taskId];
 };
 
 module.exports = TaskConsumer;
