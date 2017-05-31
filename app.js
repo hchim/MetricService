@@ -8,6 +8,8 @@ var conf = require("./config");
 var middlewares = require('service-middlewares')(conf)
 var utils = require('servicecommonutils');
 
+var winston = utils.getWinston(conf.get('env'));
+
 //routes
 var index = require('./routes/index');
 var metrics = require('./routes/metrics');
@@ -67,7 +69,7 @@ if (conf.get("env") === 'development') {
 // no stack traces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    console.error(err.message);
+    winston.log('error', err.message, err);
     res.json(utils.encodeResponseBody(req, {
         message: err.message
     }));
