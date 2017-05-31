@@ -24,8 +24,8 @@
     "winston": "~2.3.1",
     "async": "~2.4.1",
     "bluebird": "~3.5.0",
-    "servicecommonutils": "git+ssh://git@git.sleepaiden.com:service-infrastructure/servicecommonutils.git",
-    "service-middlewares": "git+ssh://git@git.sleepaiden.com:service-infrastructure/servicemiddlewares.git",
-    "metricservicemodels": "git+ssh://git@git.sleepaiden.com:service-infrastructure/metricservicemodels.git"
+    "servicecommonutils": "git@github.com:hchim/ServiceCommonUtils.git",
+    "service-middlewares": "git@github.com:hchim/ServiceMiddlewares.git",
+    "metricservicemodels": "git@github.com:hchim/MetricServiceModels.git"
   }
 }
