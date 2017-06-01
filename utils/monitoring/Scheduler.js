@@ -1,4 +1,4 @@
-var TaskConsumer = require('./TaskCosumer');
+var TaskConsumer = require('./TaskConsumer');
 var TaskRecoverer = require('./TaskRecoverer');
 
 /**

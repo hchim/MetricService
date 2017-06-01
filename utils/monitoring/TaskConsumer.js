@@ -19,7 +19,7 @@ var redlock = redlockHelper.getRedlock();
 var retrieveTask = function (num, _this) {
     redlock.lock(monitorConf.Redlock_ID, monitorConf.Redlock_TTL, function(err, lock) {
         if(err) {
-            winston.log('error', 'Failed to acquire redlock: ' + monitorConf.Redlock_ID, err);
+            winston.log('error', 'Failed to acquire redlock: ' + monitorConf.Redlock_ID +' message: ' + err.message, err);
             return;
         }
 
