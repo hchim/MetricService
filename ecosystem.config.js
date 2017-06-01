@@ -7,11 +7,11 @@ module.exports = {
     {
       name: "MetricService",
       script: "./bin/www",
-      env_development: {
-        NODE_ENV: "development"
-      },
-      env_production : {
+      env: {
         NODE_ENV: "production"
+      },
+      env_development : {
+        NODE_ENV: "development"
       },
       watch: false,
       instances: 1,
