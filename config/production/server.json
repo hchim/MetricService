@@ -1,6 +1,6 @@
 {
   "mongodb": {
-    "url": "mongodb://10.0.254.10/sleepdb"
+    "url": "mongodb://10.0.254.10/metricdb"
   },
   "redis": {
     "host": "10.0.254.10",
