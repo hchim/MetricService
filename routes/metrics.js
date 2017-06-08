@@ -18,7 +18,7 @@ router.post("/", function(req, res, next) {
   var os_type = utils.nestedReqField(req.body, 'os', 'os_type');
   var fingerprint = utils.nestedReqField(req.body, 'os', 'fingerprint');
 
-  var metric = new Metric({
+  var metricObj = {
     tag: req.body.tag,
     type: req.body.type,
     appName: req.body.appName,
@@ -35,26 +35,24 @@ router.post("/", function(req, res, next) {
       os_type: os_type ? os_type : '',
       fingerprint: fingerprint ? fingerprint : ''
     }
-  });
+  };
 
   if (metric.type === 'count') {
-    metric.count = req.body.count;
+    metric['count'] = req.body.count;
   } else if (metric.type === 'time') {
-    metric.time = req.body.time;
+    metric['time'] = req.body.time;
   } else {
-    metric.message = req.body.message;
+    metric['message'] = req.body.message;
   }
 
-  metric.save(function (err) {
-      if (err) {
-          return next(err);
-      } else {
-          return res.json(utils.encodeResponseBody(req, {
-              '_id': metric._id,
-              'tag': metric.tag,
-              'createTime': metric.createTime
-          }));
-      }
+  Metric.create(metricObj).then(function(metric) {
+      return res.json(utils.encodeResponseBody(req, {
+          '_id': metric._id,
+          'tag': metric.tag,
+          'createTime': metric.createTime
+      }));
+  }).catch(function (err) {
+      return next(err);
   });
 });
 
