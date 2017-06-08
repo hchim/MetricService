@@ -45,11 +45,11 @@ router.post("/", function(req, res, next) {
     metric.message = req.body.message;
   }
 
-  metric.save(function (err, metric) {
+  metric.save(function (err) {
       if (err) {
-          next(err);
+          return next(err);
       } else {
-          res.json(utils.encodeResponseBody(req, {
+          return res.json(utils.encodeResponseBody(req, {
               '_id': metric._id,
               'tag': metric.tag,
               'createTime': metric.createTime
