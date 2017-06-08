@@ -46,15 +46,15 @@ router.post("/", function(req, res, next) {
   }
 
   metric.save(function (err, metric) {
-    if (err) {
-      return next(err);
-    }
-
-    res.json(utils.encodeResponseBody(req, {
-      '_id': metric._id,
-      'tag': metric.tag,
-      'createTime': metric.createTime
-    }));
+      if (err) {
+          next(err);
+      } else {
+          res.json(utils.encodeResponseBody(req, {
+              '_id': metric._id,
+              'tag': metric.tag,
+              'createTime': metric.createTime
+          }));
+      }
   });
 });
 
