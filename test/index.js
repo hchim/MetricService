@@ -15,7 +15,7 @@ var endpoint = 'http://' + ip + ':' + port + '/';
 describe('/', function() {
 
     before(function(done) {
-        mongoose.connect(dbUrl, function (err) {
+        mongoose.createConnection(dbUrl, function (err) {
             if (err) {
                 return done(err);
             }

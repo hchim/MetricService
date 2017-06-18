@@ -37,12 +37,12 @@ router.post("/", function(req, res, next) {
     }
   };
 
-  if (metric.type === 'count') {
-    metric['count'] = req.body.count;
-  } else if (metric.type === 'time') {
-    metric['time'] = req.body.time;
+  if (metricObj.type === 'count') {
+      metricObj['count'] = req.body.count;
+  } else if (metricObj.type === 'time') {
+      metricObj['time'] = req.body.time;
   } else {
-    metric['message'] = req.body.message;
+      metricObj['message'] = req.body.message;
   }
 
   Metric.create(metricObj).then(function(metric) {

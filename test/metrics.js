@@ -16,7 +16,7 @@ const os = require('os');
 describe('/metrics', function() {
 
     before(function(done) {
-        mongoose.connect(dbUrl, function (err) {
+        mongoose.createConnection(dbUrl, function (err) {
             if (err) {
                 return done(err);
             }

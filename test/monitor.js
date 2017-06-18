@@ -85,7 +85,7 @@ function generateData() {
     });
 }
 
-mongoose.connect(dbUrl, null, function (error) {
+mongoose.createConnection(dbUrl, null, function (error) {
     if(error) {
         console.error(error);
         return;
