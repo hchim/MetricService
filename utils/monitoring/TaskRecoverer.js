@@ -74,7 +74,7 @@ TaskRecoverer.prototype.stop = function () {
     if (this.timeout) {
         winston.log('info', 'Stop TaskRecoverer.');
         clearInterval(this.timeout);
-        tis.isActive = false;
+        this.isActive = false;
     }
 };
 
