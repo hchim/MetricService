@@ -9,22 +9,13 @@ var commonUtils = require('servicecommonutils');
 var LogUploader = commonUtils.LogUploader;
 var http = require('http');
 var conf = require("../config");
-var mongoose = require('mongoose');
-
-mongoose.Promise = require('bluebird');
 var Scheduler = require('../utils/monitoring/Scheduler');
-
-/**
- * Get port from environment and store in Express.
- */
 
 var port = conf.get('server.port');
 var ip = conf.get("server.ip");
-var dbUrl = conf.get('mongodb.url');
 var env = conf.get('env');
 var winston = commonUtils.getWinston(env);
 
-winston.log('info', "Running MetricService in " + env + " mode.")
 app.set('port', port);
 
 /**
@@ -40,30 +31,6 @@ var server = http.createServer(app);
 server.listen(port, ip);
 server.on('error', onError);
 server.on('listening', onListening);
-
-// Mongoose listeners
-mongoose.connection.on('disconnected', function(){
-    winston.log('info', 'Lost MongoDB connection... : ' + dbUrl);
-  //Reconnect every 5 seconds.
-  setTimeout(connect_db, 5000);
-});
-
-mongoose.connection.on('connected', function() {
-    winston.log('info', 'Connection established to : ' + dbUrl);
-});
-
-mongoose.connection.once('open', function() {
-  winston.log('info', 'Connection open');
-});
-
-mongoose.connection.on('error', function() {
-  winston.log('info', 'Could not connect to : ' + dbUrl);
-  mongoose.disconnect();
-});
-
-mongoose.connection.on('reconnected', function() {
-  winston.log('info', 'Reconnected to : ' + dbUrl);
-});
 
 /**
  * Event listener for HTTP server "error" event.
@@ -98,38 +65,16 @@ function onError(error) {
  */
 
 function onListening() {
-  var addr = server.address();
-  winston.log('info', 'Running on http://' + addr.address + ":" + addr.port);
-  // connect to database
-  connect_db();
-  //create log uploader
-  new LogUploader(24 * 60 * 60 * 1000, __dirname + '/../log/', conf).start()
-}
+    var addr = server.address();
+    winston.log('info', "Running MetricService in " + env + " mode.")
+    winston.log('info', 'Running on http://' + addr.address + ":" + addr.port);
 
-function connect_db() {
-    var options = {
-        server:{
-            auto_reconnect:true,
-            socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 }
-        },
-        replset: {
-            socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 }
-        }
-    };
+    // connect to database
+    commonUtils.connectDB(conf);
 
-    mongoose.connect(dbUrl, options, function (error) {
-        if(error) {
-            winston.log('error', 'Failed to connect to mongodb.', error);
-            return;
-        }
+    //create log uploader
+    new LogUploader(24 * 60 * 60 * 1000, __dirname + '/../log/', conf).start()
 
-        winston.log("info", "Connected to mongodb.");
-        if (env === 'development' || env === 'test') {
-            mongoose.set('debug', true);
-        }
-
-        //init scheduler
-        var scheduler = new Scheduler();
-        scheduler.start();
-    });
+    //init scheduler
+    new Scheduler().start();
 }
